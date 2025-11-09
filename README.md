@@ -53,8 +53,7 @@ PPSG
 
 * [PVCP2 Dataset](https://github.com/wmj142326/PVCP2): Download PVCP2 and put it under `./data/PVCP2/`.
 
-* [SMPL Models](https://huggingface.co/lithiumice/models_hub/tree/main): Download the following SMPL model files  
-  and place them in `./data/smpl_body_models/`:
+* [SMPL Models](https://huggingface.co/lithiumice/models_hub/tree/main): Download the following SMPL model files and place them in `./data/smpl_body_models/`:
 
   * `SMPL_NEUTRAL.pkl`
   * `SMPL_N_model.npz`
