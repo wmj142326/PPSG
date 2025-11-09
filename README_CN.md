@@ -2,7 +2,7 @@
 
 ### **PPSG：Pedestrian Pre-Collision Pose Generation from Non-Visual Eyewitness Descriptions**
 
-[English](https://github.com/wmj142326/PPSG/tree/master) | 简体中文
+[English](README.md) | 简体中文
 
 📣 Our work is currently in the journal submission stage…
 
