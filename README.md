@@ -139,4 +139,4 @@ PPSG
     </details>
 
     <!-- ![UI.png](IMAGE/UI.png) -->
-    <img src="IMAGE/UI.png" width="50%">
+    <img src="IMAGE/UI.png" width="70%">
