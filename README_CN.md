@@ -2,7 +2,7 @@
 
 ### **PPSG：Pedestrian Pre-Collision Pose Generation from Non-Visual Eyewitness Descriptions**
 
-[English](README.md) | 简体中文
+[English](https://github.com/wmj142326/PPSG/tree/master) | 简体中文
 
 📣 Our work is currently in the journal submission stage…
 
@@ -124,7 +124,7 @@ PPSG
     <details>
     <summary>测试示例 1：Frame_001003.png (点击展开)</summary>
     <div style="border:1px solid #ddd; border-radius:8px; padding:12px; background:#fafafa;">
-    The pedestrian appears to be in a dynamic crouching position, possibly in preparation to balance or move quickly. The head is turned slightly to the right, and tilted slightly downward. The torso is leaning forward, bent to a slightly degree, and twisted towards left with a slightly degree. The left upper arm is oriented slightly outward, with a lifted position. The left elbow is slightly bent. The left forearm is pointing forward, and the palm is facing downward. The right upper arm is oriented slightly outward. The right elbow is slightly bent, positioned slightly below and behind the left elbow. The right forearm is pointing forward, and the palm is facing downward. The left thigh is oriented to the side and slightly forward, relative to the torso's forward axis. This indicates a balancing motion. The left knee is significantly bent. The lower leg is pointing downward. The sole of the foot is not touching the ground, and the toes are pointing downward. The right thigh is oriented forward, relative to the torso's forward axis, indicating a supportive stance. The right knee is positioned moderately forward and above the left knee, and is significantly bent. The lower leg is pointing downward and backward. The sole of the foot is fully touching the ground, and the toes are pointing 
+    The pedestrian appears to be in a dynamic crouching position, possibly in preparation to balance or move quickly. The head is turned slightly to the right, and tilted slightly downward. The torso is leaning forward, bent to a slightly degree, and twisted towards left with a slightly degree. The left upper arm is oriented slightly outward, with a lifted position. The left elbow is slightly bent. The left forearm is pointing forward, and the palm is facing downward. The right upper arm is oriented slightly outward. The right elbow is slightly bent, positioned slightly below and behind the left elbow. The right forearm is pointing forward, and the palm is facing downward. The left thigh is oriented to the side and slightly forward, relative to the torso's forward axis. This indicates a balancing motion. The left knee is significantly bent. The lower leg is pointing downward. The sole of the foot is not touching the ground, and the toes are pointing downward. The right thigh is oriented forward, relative to the torso's forward axis, indicating a supportive stance. The right knee is positioned moderately forward and above the left knee, and is significantly bent. The lower leg is pointing downward and backward. The sole of the foot is fully touching the ground, and the toes are pointing. 
     </div>
     </details>
 

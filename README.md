@@ -51,18 +51,18 @@ PPSG
 
 ### 2. Download Required Data and Models
 
-* **[PVCP2 Dataset](https://github.com/wmj142326/PVCP2)**: Download PVCP2 and put it under `./data/PVCP2/`.
+* [PVCP2 Dataset](https://github.com/wmj142326/PVCP2): Download PVCP2 and put it under `./data/PVCP2/`.
 
-* **[SMPL Models](https://huggingface.co/lithiumice/models_hub/tree/main)**: Download the following SMPL model files  
+* [SMPL Models](https://huggingface.co/lithiumice/models_hub/tree/main): Download the following SMPL model files  
   and place them in `./data/smpl_body_models/`:
 
   * `SMPL_NEUTRAL.pkl`
   * `SMPL_N_model.npz`
 
-* **[Training Checkpoints](https://pan.baidu.com/s/1W4m3ENNvjo2brovYThFbKQ?pwd=j14w)**
+* [Training Checkpoints](https://pan.baidu.com/s/1W4m3ENNvjo2brovYThFbKQ?pwd=j14w):
   Download our trained checkpoints and place them under `./experiments/`:
 
-* **[QWen1.8B Model](https://huggingface.co/Qwen/Qwen-1_8B)**
+* [QWen1.8B Model](https://huggingface.co/Qwen/Qwen-1_8B):
   Download from HuggingFace and store under `./data/pretrainllm/Qwen/`
   You may also use `modelscope`:
 
@@ -136,7 +136,7 @@ PPSG
     <details>
     <summary>Test Example 1: Frame_001003.png (Click to expand)</summary>
     <div style="border:1px solid #ddd; border-radius:8px; padding:12px; background:#fafafa;">
-    The pedestrian appears to be in a dynamic crouching position, possibly in preparation to balance or move quickly. The head is turned slightly to the right, and tilted slightly downward. The torso is leaning forward, bent to a slightly degree, and twisted towards left with a slightly degree. The left upper arm is oriented slightly outward, with a lifted position. The left elbow is slightly bent. The left forearm is pointing forward, and the palm is facing downward. The right upper arm is oriented slightly outward. The right elbow is slightly bent, positioned slightly below and behind the left elbow. The right forearm is pointing forward, and the palm is facing downward. The left thigh is oriented to the side and slightly forward, relative to the torso's forward axis. This indicates a balancing motion. The left knee is significantly bent. The lower leg is pointing downward. The sole of the foot is not touching the ground, and the toes are pointing downward. The right thigh is oriented forward, relative to the torso's forward axis, indicating a supportive stance. The right knee is positioned moderately forward and above the left knee, and is significantly bent. The lower leg is pointing downward and backward. The sole of the foot is fully touching the ground, and the toes are pointing 
+    The pedestrian appears to be in a dynamic crouching position, possibly in preparation to balance or move quickly. The head is turned slightly to the right, and tilted slightly downward. The torso is leaning forward, bent to a slightly degree, and twisted towards left with a slightly degree. The left upper arm is oriented slightly outward, with a lifted position. The left elbow is slightly bent. The left forearm is pointing forward, and the palm is facing downward. The right upper arm is oriented slightly outward. The right elbow is slightly bent, positioned slightly below and behind the left elbow. The right forearm is pointing forward, and the palm is facing downward. The left thigh is oriented to the side and slightly forward, relative to the torso's forward axis. This indicates a balancing motion. The left knee is significantly bent. The lower leg is pointing downward. The sole of the foot is not touching the ground, and the toes are pointing downward. The right thigh is oriented forward, relative to the torso's forward axis, indicating a supportive stance. The right knee is positioned moderately forward and above the left knee, and is significantly bent. The lower leg is pointing downward and backward. The sole of the foot is fully touching the ground, and the toes are pointing. 
     </div>
     </details>
 
