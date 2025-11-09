@@ -133,20 +133,20 @@ PPSG
    ```
 
 2. Use example text input format in the [PVCP2](https://github.com/wmj142326/PVCP2) dataset.
-   <details>
+    <details>
     <summary>Test Example 1: Frame_001003.png (Click to expand)</summary>
-
-   The pedestrian appears to be in a dynamic crouching position, possibly preparing to balance or move quickly. The head is turned slightly to the right and tilted downward. The torso leans forward and is slightly twisted to the left. The arms are positioned outward with elbows slightly bent, palms facing downward. The left leg is bent with the foot off the ground, while the right leg supports the body with the foot fully touching the ground.
-
+    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; background:#fafafa;">
+    The pedestrian appears to be in a dynamic crouching position, possibly in preparation to balance or move quickly. The head is turned slightly to the right, and tilted slightly downward. The torso is leaning forward, bent to a slightly degree, and twisted towards left with a slightly degree. The left upper arm is oriented slightly outward, with a lifted position. The left elbow is slightly bent. The left forearm is pointing forward, and the palm is facing downward. The right upper arm is oriented slightly outward. The right elbow is slightly bent, positioned slightly below and behind the left elbow. The right forearm is pointing forward, and the palm is facing downward. The left thigh is oriented to the side and slightly forward, relative to the torso's forward axis. This indicates a balancing motion. The left knee is significantly bent. The lower leg is pointing downward. The sole of the foot is not touching the ground, and the toes are pointing downward. The right thigh is oriented forward, relative to the torso's forward axis, indicating a supportive stance. The right knee is positioned moderately forward and above the left knee, and is significantly bent. The lower leg is pointing downward and backward. The sole of the foot is fully touching the ground, and the toes are pointing 
+    </div>
     </details>
+
 
     <details>
     <summary>Test Example 2: Frame_024673.png (Click to expand)</summary>
-
-   The pedestrian stands in a wide evasive stance with both arms stretched outward. The torso leans slightly forward. Both legs are slightly bent outward, with feet not fully touching the ground, suggesting a defensive or preparatory posture.
-
+    <div style="border:1px solid #ddd; border-radius:8px; padding:12px; background:#fafafa;">
+    The pedestrian is in an evasive wide-legged stance with arms stretched outward, suggesting a preparatory or defensive action. The head is turned straight and tilted slightly downward. The torso is leaning slightly forward, bent to a slightly degree, and twisted towards none with a not degree. The left upper arm is oriented straight outward, with a stretched position. The left elbow is not bent. The left forearm is pointing outward, and the palm is facing downward. The right upper arm is oriented straight outward. The right elbow is not bent,positioned level with the left elbow. The right forearm is pointing outward, and the palm is facing downward. The left thigh is oriented outward and downward, relative to the torso's forward axis. This indicates a posed stance. The left knee is slightly bent. The lower leg is pointing outward. The sole of the foot is not touching the ground, and the toes are pointing slightly upward. The right thigh is oriented outward and downward, relative to the torso's forward axis, indicating a posed stance. The right knee is positioned level with the left knee, and is slightly bent. The lower leg is pointing outward. The sole of the foot is not touching the ground, and the toes are pointing slightly upward. 
+    </div>
     </details>
-   
 
 3. UI Demo (Our online demo will be available soon...)
 
