@@ -52,7 +52,7 @@ PPSG
 
 - [PVCP2](https://github.com/wmj142326/PVCP2)数据集：下载PVCP2数据集至路径 `./data/PVCP2/` 路径下。
 - [SMPL](https://huggingface.co/lithiumice/models_hub/tree/main)模型文件：下载SMPL模型: [SMPL_NEUTRAL.pkl](https://huggingface.co/lithiumice/models_hub/tree/main/4_SMPLhub/SMPL/X_pkl) 和 [SMPL_N_model.npz](https://huggingface.co/lithiumice/models_hub/tree/main/4_SMPLhub/SMPL/X_model_npz) 放入`./data/smpl_body_models/`路径下。
-- [训练权重](https://pan.baidu.com/s/1W4m3ENNvjo2brovYThFbKQ?pwd=j14w)：下载我们的训练模型权重至`./experiments/`文件夹下。
+- [训练权重](https://drive.google.com/drive/folders/1z-qndztHsL2Xa0DB9aZSGigwok87Fk0m?usp=drive_link)：下载我们的训练模型权重至`./experiments/`文件夹下。
 - [QWen1.8B](https://huggingface.co/Qwen/Qwen-1_8B)：将QWen1.8B模型放入`./data/pretrainllm/Qwen/` 路径下，使用以下命令下载：
     
     ```bash

@@ -58,7 +58,7 @@ PPSG
   * `SMPL_NEUTRAL.pkl`
   * `SMPL_N_model.npz`
 
-* [Training Checkpoints](https://pan.baidu.com/s/1W4m3ENNvjo2brovYThFbKQ?pwd=j14w):
+* [Training Checkpoints](https://drive.google.com/drive/folders/1z-qndztHsL2Xa0DB9aZSGigwok87Fk0m?usp=drive_link):
   Download our trained checkpoints and place them under `./experiments/`:
 
 * [QWen1.8B Model](https://huggingface.co/Qwen/Qwen-1_8B):
