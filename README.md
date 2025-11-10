@@ -51,12 +51,12 @@ PPSG
 
 ### 2. Download Required Data and Models
 
-* [PVCP2 Dataset](https://github.com/wmj142326/PVCP2): Download PVCP2 and put it under `./data/PVCP2/`.
+* [PVCP2 Dataset](https://drive.google.com/drive/folders/1z-qndztHsL2Xa0DB9aZSGigwok87Fk0m?usp=drive_link): Download PVCP2 and put it under `./data/PVCP2/`. [See [PVCP2](https://github.com/wmj142326/PVCP2) project] 
 
 * [SMPL Models](https://huggingface.co/lithiumice/models_hub/tree/main): Download the following SMPL model files and place them in `./data/smpl_body_models/`:
 
-  * `SMPL_NEUTRAL.pkl`
-  * `SMPL_N_model.npz`
+  * [SMPL_NEUTRAL.pkl](https://huggingface.co/lithiumice/models_hub/tree/main/4_SMPLhub/SMPL/X_pkl)
+  * [SMPL_N_model.npz](https://huggingface.co/lithiumice/models_hub/tree/main/4_SMPLhub/SMPL/X_model_npz)
 
 * [Training Checkpoints](https://drive.google.com/drive/folders/1z-qndztHsL2Xa0DB9aZSGigwok87Fk0m?usp=drive_link):
   Download our trained checkpoints and place them under `./experiments/`:
