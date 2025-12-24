@@ -1,6 +1,6 @@
 # README
 
-### Pedestrian Pre-Collision Pose Generation from Eyewitness Descriptions Without Visual Evidence**
+### **Pedestrian Pre-Collision Pose Generation from Eyewitness Descriptions Without Visual Evidence**
 
 [English](README.md) | 简体中文
 
