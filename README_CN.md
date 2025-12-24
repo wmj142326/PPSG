@@ -1,6 +1,6 @@
 # README
 
-### **PPSG：Pedestrian Pre-Collision Pose Generation from Non-Visual Eyewitness Descriptions**
+### Pedestrian Pre-Collision Pose Generation from Eyewitness Descriptions Without Visual Evidence**
 
 [English](README.md) | 简体中文
 
