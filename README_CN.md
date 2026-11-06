@@ -4,8 +4,6 @@
 
 [English](README.md) | 简体中文
 
-📣 Our work is currently in the journal submission stage…
-
 ---
 ![pipline.png](IMAGE/pipline.png)
 
