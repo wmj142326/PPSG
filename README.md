@@ -2,8 +2,6 @@
 
 English | [简体中文](README_CN.md)
 
-📣 Our work is currently under journal review…
-
 ---
 ![pipline.png](IMAGE/pipline.png)
 
