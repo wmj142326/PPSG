@@ -54,7 +54,14 @@ def main(args):
     elif args.text_encoder_name.split("_")[0] in ["Qwen", "qwen"]:
         collate_gen = collate_fn_general
         
-    dataset_train = PVCP2(split='train', text_encoder_name=args.text_encoder_name)
+    dataset_train = PVCP2(
+        split='train',
+        text_encoder_name=args.text_encoder_name,
+        text_mode=args.train_text_mode,
+        keep_full_prob=args.train_keep_full_prob,
+        train_mask_ratios=args.train_mask_ratios,
+        text_mask_seed=args.text_mask_seed,
+    )
     print(dataset_train, len(dataset_train))
     
     data_loader_train = torch.utils.data.DataLoader(
@@ -67,7 +74,7 @@ def main(args):
         collate_fn=collate_gen
     )
     print('✅ Load validation dataset')
-    dataset_val = PVCP2(split='val', text_encoder_name=args.text_encoder_name)
+    dataset_val = PVCP2(split='val', text_encoder_name=args.text_encoder_name, text_mode="full")
     print(dataset_val, len(dataset_val))
     data_loader_val = torch.utils.data.DataLoader(
         dataset_val, sampler=None, shuffle=False,
@@ -125,6 +132,7 @@ def main(args):
     start_time = time.time()
     for epoch in range(start_epoch, args.epochs): 
         # training
+        dataset_train.set_epoch(epoch)
         train_stats = one_epoch(
             model, body_model,
             is_training=True,
@@ -155,7 +163,7 @@ def main(args):
                   'args': args,
                   }
         
-        if epoch % args.saving_ckpt_step==0:
+        if epoch>epoch*0.3 and epoch % args.saving_ckpt_step==0:
             print(f'save checkpoint [{os.path.basename(ckpt_last_fname)}] for resume...')
             ckpt_current_fname = os.path.join(args.output_dir, f'checkpoint_{epoch}.pth')
             torch.save(tosave, ckpt_current_fname)

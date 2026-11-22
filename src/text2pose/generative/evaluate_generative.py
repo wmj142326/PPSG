@@ -25,7 +25,48 @@ from text2pose.generative.fid import FID
 OVERWRITE_RESULT = False
 
 
-def eval_model_all_runs(model_path, dataset_version, split='val', num_samples=20):
+def get_text_condition_label(test_text_mode, test_mask_ratio, text_mask_seed,
+							 test_noise_ratio=0.1, text_noise_seed=42):
+	if test_text_mode == "full":
+		return "text-full"
+	if test_text_mode == "noisy":
+		return f"text-noisy-r{int(round(float(test_noise_ratio) * 100))}-seed{text_noise_seed}"
+	return f"text-mask-r{int(round(float(test_mask_ratio) * 100))}-seed{text_mask_seed}"
+
+
+def build_eval_dataset(split, text_encoder_name, test_text_mode,
+					   test_mask_ratio, text_mask_seed, mask_manifest_path,
+					   test_noise_ratio=0.1, text_noise_seed=42,
+					   noise_manifest_path=None):
+	if test_text_mode == "full":
+		return PVCP2(
+			split=split,
+			text_encoder_name=text_encoder_name,
+			text_mode="full",
+		)
+	if test_text_mode == "noisy":
+		return PVCP2(
+			split=split,
+			text_encoder_name=text_encoder_name,
+			text_mode="noisy",
+			fixed_noise_ratio=test_noise_ratio,
+			text_noise_seed=text_noise_seed,
+			noise_manifest_path=noise_manifest_path,
+		)
+	return PVCP2(
+		split=split,
+		text_encoder_name=text_encoder_name,
+		text_mode="mask",
+		fixed_mask_ratio=test_mask_ratio,
+		text_mask_seed=text_mask_seed,
+		mask_manifest_path=mask_manifest_path,
+	)
+
+
+def eval_model_all_runs(model_path, dataset_version, split='val', num_samples=20,
+						test_text_mode="full", test_mask_ratio=0.1, text_mask_seed=42,
+						mask_manifest_path=None, test_noise_ratio=0.1,
+						text_noise_seed=42, noise_manifest_path=None):
 
 	# get files for all runs
 	files = glob.glob(model_path)
@@ -33,7 +74,19 @@ def eval_model_all_runs(model_path, dataset_version, split='val', num_samples=20
 	# get results for each run
 	all_run_results = {}
 	for model_path in files:
-		r = eval_model(model_path, dataset_version, split=split, num_samples=num_samples)
+		r = eval_model(
+			model_path,
+			dataset_version,
+			split=split,
+			num_samples=num_samples,
+			test_text_mode=test_text_mode,
+			test_mask_ratio=test_mask_ratio,
+			text_mask_seed=text_mask_seed,
+			mask_manifest_path=mask_manifest_path,
+			test_noise_ratio=test_noise_ratio,
+			text_noise_seed=text_noise_seed,
+			noise_manifest_path=noise_manifest_path,
+		)
 		all_run_results = r if not all_run_results else {k:all_run_results[k]+v for k,v in r.items()}
 
 	# average & std over runs
@@ -42,10 +95,20 @@ def eval_model_all_runs(model_path, dataset_version, split='val', num_samples=20
 	return all_run_results, len(files)
 
 
-def eval_model(model_path, dataset_version, split='val', num_samples=20):
+def eval_model(model_path, dataset_version, split='val', num_samples=20,
+			   test_text_mode="full", test_mask_ratio=0.1, text_mask_seed=42,
+			   mask_manifest_path=None, test_noise_ratio=0.1,
+			   text_noise_seed=42, noise_manifest_path=None):
 	
 	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 	suffix = get_epoch_from_model_path(model_path)
+	text_condition = get_text_condition_label(
+		test_text_mode,
+		test_mask_ratio,
+		text_mask_seed,
+		test_noise_ratio=test_noise_ratio,
+		text_noise_seed=text_noise_seed,
+	)
 
 	# set seed for reproducibility (sampling for pose generation)
 	torch.manual_seed(42)
@@ -55,7 +118,7 @@ def eval_model(model_path, dataset_version, split='val', num_samples=20):
 		# average over captions
 		results = {}
 		nb_caps = len(config.caption_files[dataset_version])
-		get_res_file = lambda cap_ind: os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_{cap_ind}_{suffix}.txt")
+		get_res_file = lambda cap_ind: os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_{text_condition}_{cap_ind}_{suffix}.txt")
 		# load model if results for at least one caption is missing
 		if OVERWRITE_RESULT or sum([not os.path.isfile(get_res_file(cap_ind)) for cap_ind in range(nb_caps)]):
 			model, text_encoder_name = load_model(model_path, device)
@@ -63,7 +126,17 @@ def eval_model(model_path, dataset_version, split='val', num_samples=20):
 		for cap_ind in range(nb_caps):
 			filename_res = get_res_file(cap_ind)
 			if not os.path.isfile(filename_res) or OVERWRITE_RESULT:
-				d = PVCP2(split=split, text_encoder_name=text_encoder_name)
+				d = build_eval_dataset(
+					split,
+					text_encoder_name,
+					test_text_mode,
+					test_mask_ratio,
+					text_mask_seed,
+					mask_manifest_path,
+					test_noise_ratio=test_noise_ratio,
+					text_noise_seed=text_noise_seed,
+					noise_manifest_path=noise_manifest_path,
+				)
 				cap_results = compute_eval_metrics(model, d, device, num_samples)
 				best, avg, dis = compute_sampled_metrics(model, d, device, num_samples)
 				for k in best:
@@ -84,14 +157,24 @@ def eval_model(model_path, dataset_version, split='val', num_samples=20):
 			results = {k:[v] for k, v in cap_results.items()} if not results else {k:results[k]+[v] for k,v in cap_results.items()}
 		results = {k:sum(v)/nb_caps for k,v in results.items()}
 		# save average result
-		filename_res_avg = os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_avg_{suffix}.txt")
+		filename_res_avg = os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_{text_condition}_avg_{suffix}.txt")
 		save_to_file(results, filename_res_avg)
 	else:
-		filename_res = os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_{suffix}.txt")
+		filename_res = os.path.join(os.path.dirname(model_path), f"result_{split}_{dataset_version}_{text_condition}_{suffix}.txt")
 		# compute or load results
 		if not os.path.isfile(filename_res) or OVERWRITE_RESULT:
 			model, text_encoder_name = load_model(model_path, device)
-			d = PVCP2(split=split, text_encoder_name=text_encoder_name)
+			d = build_eval_dataset(
+				split,
+				text_encoder_name,
+				test_text_mode,
+				test_mask_ratio,
+				text_mask_seed,
+				mask_manifest_path,
+				test_noise_ratio=test_noise_ratio,
+				text_noise_seed=text_noise_seed,
+				noise_manifest_path=noise_manifest_path,
+			)
 			results = compute_eval_metrics(model, d, device, num_samples)
 			best, avg, dis = compute_sampled_metrics(model, d, device, num_samples)
 			for k in best:
@@ -278,7 +361,7 @@ def get_seed_from_model_path(model_path):
 
 
 def get_epoch_from_model_path(model_path):
-	return model_path.split("_")[-1].split(".")[0]
+	return os.path.splitext(os.path.basename(model_path))[0]
 
 
 def rigid_transform_3D(A, B):
@@ -466,21 +549,81 @@ if __name__=="__main__":
 	parser.add_argument('--fid', type=str, help='Version of the fid to used for evaluation.')
 	parser.add_argument('--split', default="test", type=str, help="Split to evaluate.")
 	parser.add_argument('--n_sample', default=20, type=int, help="Number of samples.")
+	parser.add_argument(
+		"--test_text_mode",
+		default="full",
+		choices=["full", "mask", "noisy"],
+		type=str,
+	)
+	parser.add_argument(
+		"--test_mask_ratio",
+		default=0.1,
+		type=float,
+	)
+	parser.add_argument(
+		"--text_mask_seed",
+		default=42,
+		type=int,
+	)
+	parser.add_argument(
+		"--mask_manifest_path",
+		default=None,
+		type=str,
+	)
+	parser.add_argument(
+		"--test_noise_ratio",
+		default=0.1,
+		type=float,
+	)
+	parser.add_argument(
+		"--text_noise_seed",
+		default=42,
+		type=int,
+	)
+	parser.add_argument(
+		"--noise_manifest_path",
+		default=None,
+		type=str,
+	)
 	args = parser.parse_args()
 
 	# compute results
 	if args.average_over_runs:
 		model_path = config.normalize_model_path(args.model_path, "*")
-		ret, nb = eval_model_all_runs(model_path, args.dataset, split=args.split, num_samples=args.n_sample)
+		ret, nb = eval_model_all_runs(
+			model_path,
+			args.dataset,
+			split=args.split,
+			num_samples=args.n_sample,
+			test_text_mode=args.test_text_mode,
+			test_mask_ratio=args.test_mask_ratio,
+			text_mask_seed=args.text_mask_seed,
+			mask_manifest_path=args.mask_manifest_path,
+			test_noise_ratio=args.test_noise_ratio,
+			text_noise_seed=args.text_noise_seed,
+			noise_manifest_path=args.noise_manifest_path,
+		)
 	else:
-		ret = eval_model(args.model_path, args.dataset, split=args.split, num_samples=args.n_sample)
+		ret = eval_model(
+			args.model_path,
+			args.dataset,
+			split=args.split,
+			num_samples=args.n_sample,
+			test_text_mode=args.test_text_mode,
+			test_mask_ratio=args.test_mask_ratio,
+			text_mask_seed=args.text_mask_seed,
+			mask_manifest_path=args.mask_manifest_path,
+			test_noise_ratio=args.test_noise_ratio,
+			text_noise_seed=args.text_noise_seed,
+			noise_manifest_path=args.noise_manifest_path,
+		)
 		nb = 1
 
 	# display results
 	if nb == 1:
 		fill = lambda key: '%.2f' % ret[key][0]
 	else:
-		fill = lambda key: "%.2f \\tiny{${\pm}$ %.2f}" % tuple(ret[key])
+		fill = lambda key: r"%.2f \tiny{$\pm$ %.2f}" % tuple(ret[key])
  
 	print("\n<model> | "
 		f"fid: {fill('fid')} \n"

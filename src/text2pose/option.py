@@ -41,6 +41,30 @@ def get_args_parser():
     parser.add_argument('--lr_gamma', default=0.5, type=float, help='gamma for the learning rate scheduler')
 
     parser.add_argument('--pretrained', default='', type=str, help="shortname for the model to be used as pretrained model (full path registered in config.py")
+
+    # text incompleteness experiment
+    parser.add_argument(
+        "--train_text_mode",
+        default="full",
+        choices=["full", "aug"],
+        type=str,
+    )
+    parser.add_argument(
+        "--train_keep_full_prob",
+        default=0.4,
+        type=float,
+    )
+    parser.add_argument(
+        "--train_mask_ratios",
+        default=[0.1, 0.2, 0.3, 0.5, 0.7],
+        nargs="+",
+        type=float,
+    )
+    parser.add_argument(
+        "--text_mask_seed",
+        default=42,
+        type=int,
+    )
     
     # validation / evaluation
     parser.add_argument('--fid', type=str, help='version of the fid for the model')
@@ -66,7 +90,9 @@ def get_output_dir(args):
 
     # define strings to provide details about different aspects of the model (architecture, training)
     architecture_details = f'{args.model}_textencoder-{args.text_encoder_name}' + f"_latentD{args.latentD}"
-    dataset_details = f'train-{args.dataset}'
+    dataset_details = f'train-{args.dataset}_traintext-{args.train_text_mode}'
+    if args.train_text_mode == "aug":
+        dataset_details += f'_keep{args.train_keep_full_prob}'
 
     # specific to the generative model
     if args.model == "CondTextPoser":

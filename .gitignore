@@ -8,6 +8,7 @@ __pycache__/
 dataset_cache/
 data/
 experiments/
+pretrainllm/
 output/
 
 # C extensions
