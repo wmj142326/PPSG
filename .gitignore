@@ -11,6 +11,9 @@ experiments/
 pretrainllm/
 output/
 
+# Local CSV outputs
+*.csv
+
 # C extensions
 *.so
 
