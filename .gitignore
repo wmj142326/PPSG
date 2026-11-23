@@ -14,10 +14,12 @@ output/
 # Local CSV outputs
 *.csv
 
-# Local analysis data and reports
+# Local analysis scripts, data and reports
 /data.xlsx
 /significance_results.md
 /welch_results_sheet2.md
+/significance_analysis.py
+/welch_analysis_sheet2.py
 
 # C extensions
 *.so
