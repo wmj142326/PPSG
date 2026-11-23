@@ -14,6 +14,11 @@ output/
 # Local CSV outputs
 *.csv
 
+# Local analysis data and reports
+/data.xlsx
+/significance_results.md
+/welch_results_sheet2.md
+
 # C extensions
 *.so
 
